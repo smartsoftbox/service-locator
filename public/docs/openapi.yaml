@@ -1,0 +1,2200 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: 'User Login'
+      operationId: userLogin
+      description: 'Authenticate a user and return a token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IkpvbmUgRG9lIiwiaWF0IjoxNTYwNzQ1OTY4LCJleHBpcmF0aW9uIjoiZG9lIiwiaWF0IjoxNTYwNzQ1OTY4fQ.qE0MFGm8er5mDdf4JqY9s8xlL78n3b7OfZQG-VZDaRQ\",\n}"
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Invalid credentials'
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid credentials'
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email address of the user.'
+                  example: user@example.com
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: password123
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: 'User Logout'
+      operationId: userLogout
+      description: "Invalidate the user's token and log out."
+      parameters: []
+      responses:
+        204:
+          description: ''
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Unauthorized. No valid token provided.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Unauthorized. No valid token provided.'
+      tags:
+        - Authentication
+      security: []
+  /api/categories:
+    get:
+      summary: 'List Categories'
+      operationId: listCategories
+      description: 'Returns a list of categories.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: Electronics
+                      description: 'This is category description'
+                      created_at: '2023-09-14 19:33:33'
+                      updated_at: '2023-09-14 19:33:33'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: Electronics
+                        description: 'This is category description'
+                        created_at: '2023-09-14 19:33:33'
+                        updated_at: '2023-09-14 19:33:33'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: Electronics
+                        description:
+                          type: string
+                          example: 'This is category description'
+                        created_at:
+                          type: string
+                          example: '2023-09-14 19:33:33'
+                        updated_at:
+                          type: string
+                          example: '2023-09-14 19:33:33'
+      tags:
+        - Categories
+      security: []
+    post:
+      summary: 'Create a new Category'
+      operationId: createANewCategory
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 2
+                  name: Clothing
+                  description: 'This is category description'
+                  created_at: '2023-09-14 19:33:33'
+                  updated_at: '2023-09-14 19:33:33'
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  name:
+                    type: string
+                    example: Clothing
+                  description:
+                    type: string
+                    example: 'This is category description'
+                  created_at:
+                    type: string
+                    example: '2023-09-14 19:33:33'
+                  updated_at:
+                    type: string
+                    example: '2023-09-14 19:33:33'
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the category.'
+                  example: '"Clothing"'
+                description:
+                  type: string
+                  description: 'Optional. The description of the category.'
+                  example: 'Category for restaurants'
+              required:
+                - name
+      security: []
+  '/api/categories/{id}':
+    get:
+      summary: 'Get a specific Category'
+      operationId: getASpecificCategory
+      description: 'Retrieve details of a specific category by its ID.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: Hotels
+                  description: 'Category for hotels and accommodations'
+                  created_at: '2024-09-14T19:33:33.000000Z'
+                  updated_at: '2024-09-14T19:33:33.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Hotels
+                  description:
+                    type: string
+                    example: 'Category for hotels and accommodations'
+                  created_at:
+                    type: string
+                    example: '2024-09-14T19:33:33.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-14T19:33:33.000000Z'
+      tags:
+        - Categories
+      security: []
+    put:
+      summary: 'Update a specific Category'
+      operationId: updateASpecificCategory
+      description: 'Update the details of a category by its ID. Only fields provided in the request will be updated.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: Restaurants
+                  description: 'Category for restaurants'
+                  created_at: '2024-09-14T19:33:33.000000Z'
+                  updated_at: '2024-09-14T19:45:45.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Restaurants
+                  description:
+                    type: string
+                    example: 'Category for restaurants'
+                  created_at:
+                    type: string
+                    example: '2024-09-14T19:33:33.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-14T19:45:45.000000Z'
+      tags:
+        - Categories
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Optional. The name of the category.'
+                  example: Restaurants
+                description:
+                  type: string
+                  description: 'Optional. The description of the category.'
+                  example: 'Category for restaurants'
+      security: []
+    delete:
+      summary: 'Delete a specific Category'
+      operationId: deleteASpecificCategory
+      description: 'Delete the category by its ID. This action is irreversible.'
+      parameters: []
+      responses:
+        204:
+          description: ''
+      tags:
+        - Categories
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/services/{service_id}/promotions':
+    get:
+      summary: 'Get a list of Promotions'
+      operationId: getAListOfPromotions
+      description: 'Retrieve a paginated list of promotions. Optionally, include related services by using the `include=services` parameter.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'Include related resources, e.g., `services`.'
+          example: '?include=services'
+          required: false
+          schema:
+            type: string
+            description: 'Include related resources, e.g., `services`.'
+            example: '?include=services'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      service_id: 10
+                      description: 'Discount on spa services'
+                      valid_until: '2024-12-31'
+                      created_at: '2024-09-15T12:45:32.000000Z'
+                      updated_at: '2024-09-15T12:45:32.000000Z'
+                      service:
+                        id: 10
+                        name: 'Spa Service'
+                        category_id: 3
+                        address: '123 Wellness Street'
+                        latitude: 34.052235
+                        longitude: -118.243683
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        service_id: 10
+                        description: 'Discount on spa services'
+                        valid_until: '2024-12-31'
+                        created_at: '2024-09-15T12:45:32.000000Z'
+                        updated_at: '2024-09-15T12:45:32.000000Z'
+                        service:
+                          id: 10
+                          name: 'Spa Service'
+                          category_id: 3
+                          address: '123 Wellness Street'
+                          latitude: 34.052235
+                          longitude: -118.243683
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        service_id:
+                          type: integer
+                          example: 10
+                        description:
+                          type: string
+                          example: 'Discount on spa services'
+                        valid_until:
+                          type: string
+                          example: '2024-12-31'
+                        created_at:
+                          type: string
+                          example: '2024-09-15T12:45:32.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-09-15T12:45:32.000000Z'
+                        service:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 10
+                            name:
+                              type: string
+                              example: 'Spa Service'
+                            category_id:
+                              type: integer
+                              example: 3
+                            address:
+                              type: string
+                              example: '123 Wellness Street'
+                            latitude:
+                              type: number
+                              example: 34.052235
+                            longitude:
+                              type: number
+                              example: -118.243683
+      tags:
+        - Promotions
+      security: []
+    post:
+      summary: 'Create a new Promotion'
+      operationId: createANewPromotion
+      description: 'Store a new promotion in the system. You must provide a service ID, description, and optionally the expiration date.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 10
+                  description: 'Discount on spa services'
+                  valid_until: '2024-12-31'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T12:45:32.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 10
+                  description:
+                    type: string
+                    example: 'Discount on spa services'
+                  valid_until:
+                    type: string
+                    example: '2024-12-31'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+      tags:
+        - Promotions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  description: 'The ID of the related service.'
+                  example: 10
+                description:
+                  type: string
+                  description: 'The promotion description.'
+                  example: 'Discount on spa services'
+                valid_until:
+                  type: date
+                  description: 'Optional. The expiration date of the promotion in YYYY-MM-DD format.'
+                  example: '2024-12-31'
+              required:
+                - service_id
+                - description
+      security: []
+    parameters:
+      -
+        in: path
+        name: service_id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{service_id}/promotions/{id}':
+    get:
+      summary: 'Get a specific Promotion'
+      operationId: getASpecificPromotion
+      description: 'Retrieve details of a specific promotion by its ID. Optionally, include the related service by using the `include=services` parameter.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'Include related resources, e.g., `services`.'
+          example: '?include=services'
+          required: false
+          schema:
+            type: string
+            description: 'Include related resources, e.g., `services`.'
+            example: '?include=services'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 10
+                  description: 'Discount on spa services'
+                  valid_until: '2024-12-31'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T12:45:32.000000Z'
+                  service:
+                    id: 10
+                    name: 'Spa Service'
+                    category_id: 3
+                    address: '123 Wellness Street'
+                    latitude: 34.052235
+                    longitude: -118.243683
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 10
+                  description:
+                    type: string
+                    example: 'Discount on spa services'
+                  valid_until:
+                    type: string
+                    example: '2024-12-31'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  service:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 10
+                      name:
+                        type: string
+                        example: 'Spa Service'
+                      category_id:
+                        type: integer
+                        example: 3
+                      address:
+                        type: string
+                        example: '123 Wellness Street'
+                      latitude:
+                        type: number
+                        example: 34.052235
+                      longitude:
+                        type: number
+                        example: -118.243683
+      tags:
+        - Promotions
+      security: []
+    put:
+      summary: 'Update a Promotion'
+      operationId: updateAPromotion
+      description: 'Update the details of an existing promotion by its ID. You can update the service ID, description, and expiration date.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 10
+                  description: 'Updated discount on spa services'
+                  valid_until: '2024-12-31'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T13:00:00.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 10
+                  description:
+                    type: string
+                    example: 'Updated discount on spa services'
+                  valid_until:
+                    type: string
+                    example: '2024-12-31'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T13:00:00.000000Z'
+      tags:
+        - Promotions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  description: 'Optional. The ID of the related service.'
+                  example: 10
+                description:
+                  type: string
+                  description: 'Optional. The promotion description.'
+                  example: 'Updated discount on spa services'
+                valid_until:
+                  type: date
+                  description: 'Optional. The expiration date of the promotion in YYYY-MM-DD format.'
+                  example: '2024-12-31'
+      security: []
+    delete:
+      summary: 'Delete a Promotion'
+      operationId: deleteAPromotion
+      description: 'Delete a specific promotion by its ID. This action is irreversible.'
+      parameters: []
+      responses:
+        204:
+          description: ''
+      tags:
+        - Promotions
+      security: []
+    parameters:
+      -
+        in: path
+        name: service_id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: id
+        description: 'The ID of the promotion.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{service_id}/reviews':
+    get:
+      summary: 'Get a list of Reviews'
+      operationId: getAListOfReviews
+      description: 'Retrieve a paginated list of reviews. Optionally, include related services or review authors (users) by using the `include` parameter.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'Include related resources. Possible values: `service`, `reviews.user`.'
+          example: '?include=service,reviews.user'
+          required: false
+          schema:
+            type: string
+            description: 'Include related resources. Possible values: `service`, `reviews.user`.'
+            example: '?include=service,reviews.user'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      service_id: 10
+                      user_id: 5
+                      rating: 5
+                      comment: 'Excellent service!'
+                      created_at: '2024-09-15T12:45:32.000000Z'
+                      updated_at: '2024-09-15T12:45:32.000000Z'
+                      service:
+                        id: 10
+                        name: 'Spa Service'
+                        category_id: 3
+                        address: '123 Wellness Street'
+                        latitude: 34.052235
+                        longitude: -118.243683
+                      user:
+                        id: 5
+                        name: 'John Doe'
+                  links:
+                    first: 'http://example.com/api/reviews?page=1'
+                    last: 'http://example.com/api/reviews?page=3'
+                    prev: null
+                    next: 'http://example.com/api/reviews?page=2'
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 3
+                    path: 'http://example.com/api/reviews'
+                    per_page: 15
+                    to: 15
+                    total: 45
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        service_id: 10
+                        user_id: 5
+                        rating: 5
+                        comment: 'Excellent service!'
+                        created_at: '2024-09-15T12:45:32.000000Z'
+                        updated_at: '2024-09-15T12:45:32.000000Z'
+                        service:
+                          id: 10
+                          name: 'Spa Service'
+                          category_id: 3
+                          address: '123 Wellness Street'
+                          latitude: 34.052235
+                          longitude: -118.243683
+                        user:
+                          id: 5
+                          name: 'John Doe'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        service_id:
+                          type: integer
+                          example: 10
+                        user_id:
+                          type: integer
+                          example: 5
+                        rating:
+                          type: integer
+                          example: 5
+                        comment:
+                          type: string
+                          example: 'Excellent service!'
+                        created_at:
+                          type: string
+                          example: '2024-09-15T12:45:32.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-09-15T12:45:32.000000Z'
+                        service:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 10
+                            name:
+                              type: string
+                              example: 'Spa Service'
+                            category_id:
+                              type: integer
+                              example: 3
+                            address:
+                              type: string
+                              example: '123 Wellness Street'
+                            latitude:
+                              type: number
+                              example: 34.052235
+                            longitude:
+                              type: number
+                              example: -118.243683
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 5
+                            name:
+                              type: string
+                              example: 'John Doe'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://example.com/api/reviews?page=1'
+                      last:
+                        type: string
+                        example: 'http://example.com/api/reviews?page=3'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: 'http://example.com/api/reviews?page=2'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 3
+                      path:
+                        type: string
+                        example: 'http://example.com/api/reviews'
+                      per_page:
+                        type: integer
+                        example: 15
+                      to:
+                        type: integer
+                        example: 15
+                      total:
+                        type: integer
+                        example: 45
+      tags:
+        - Reviews
+      security: []
+    post:
+      summary: 'Create a new Review'
+      operationId: createANewReview
+      description: 'Store a new review for a specific service. You must provide a service ID, user ID, rating, and optionally a comment.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 10
+                  user_id: 5
+                  rating: 5
+                  comment: 'Excellent service!'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T12:45:32.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 10
+                  user_id:
+                    type: integer
+                    example: 5
+                  rating:
+                    type: integer
+                    example: 5
+                  comment:
+                    type: string
+                    example: 'Excellent service!'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+      tags:
+        - Reviews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  description: 'The ID of the related service.'
+                  example: 10
+                user_id:
+                  type: integer
+                  description: 'The ID of the user posting the review.'
+                  example: 5
+                rating:
+                  type: integer
+                  description: 'The rating for the service, between 1 and 5.'
+                  example: 5
+                comment:
+                  type: string
+                  description: 'optional The comment for the review.'
+                  example: 'Excellent service!'
+              required:
+                - service_id
+                - user_id
+                - rating
+      security: []
+    parameters:
+      -
+        in: path
+        name: service_id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{service_id}/reviews/{id}':
+    get:
+      summary: 'Create a new Review'
+      operationId: createANewReview
+      description: 'Store a new review for a specific service. You must provide a service ID, user ID, rating, and optionally a comment.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 10
+                  user_id: 5
+                  rating: 5
+                  comment: 'Excellent service!'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T12:45:32.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 10
+                  user_id:
+                    type: integer
+                    example: 5
+                  rating:
+                    type: integer
+                    example: 5
+                  comment:
+                    type: string
+                    example: 'Excellent service!'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+      tags:
+        - Reviews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  description: 'The ID of the related service.'
+                  example: 10
+                user_id:
+                  type: integer
+                  description: 'The ID of the user posting the review.'
+                  example: 5
+                rating:
+                  type: integer
+                  description: 'The rating for the service, between 1 and 5.'
+                  example: 5
+                comment:
+                  type: string
+                  description: 'optional The comment for the review.'
+                  example: 'Excellent service!'
+              required:
+                - service_id
+                - user_id
+                - rating
+      security: []
+    put:
+      summary: 'Update a Review'
+      operationId: updateAReview
+      description: 'Update the details of an existing review by its ID. You can update the rating, comment, or related service.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 11
+                  user_id: 5
+                  rating: 4
+                  comment: 'Good service, but room for improvement.'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T13:00:00.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 11
+                  user_id:
+                    type: integer
+                    example: 5
+                  rating:
+                    type: integer
+                    example: 4
+                  comment:
+                    type: string
+                    example: 'Good service, but room for improvement.'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T13:00:00.000000Z'
+      tags:
+        - Reviews
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: integer
+                  description: 'optional The rating for the service, between 1 and 5.'
+                  example: 4
+                comment:
+                  type: string
+                  description: 'optional The comment for the review.'
+                  example: 'Good service, but room for improvement.'
+                service_id:
+                  type: integer
+                  description: 'optional The ID of the related service.'
+                  example: 11
+      security: []
+    delete:
+      summary: 'Delete a Review'
+      operationId: deleteAReview
+      description: 'Delete a specific review by its ID. This action is irreversible.'
+      parameters: []
+      responses:
+        204:
+          description: ''
+      tags:
+        - Reviews
+      security: []
+    parameters:
+      -
+        in: path
+        name: service_id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: id
+        description: 'The ID of the review.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/services:
+    get:
+      summary: 'Get a list of Services'
+      operationId: getAListOfServices
+      description: 'Retrieve a paginated list of services. Optionally, include related categories, reviews, or review authors (users) by using the `include` parameter.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'Include related resources. Possible values: `category`, `reviews`, `reviews.user`.'
+          example: '?include=category,reviews,reviews.user'
+          required: false
+          schema:
+            type: string
+            description: 'Include related resources. Possible values: `category`, `reviews`, `reviews.user`.'
+            example: '?include=category,reviews,reviews.user'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: 'Spa Service'
+                      category_id: 3
+                      address: '123 Wellness Street'
+                      latitude: 34.052235
+                      longitude: -118.243683
+                      rating: 4.5
+                      review_count: 10
+                      opening_hours:
+                        Monday: '08:00-20:00'
+                        Tuesday: '08:00-20:00'
+                      created_at: '2024-09-15T12:45:32.000000Z'
+                      updated_at: '2024-09-15T12:45:32.000000Z'
+                      category:
+                        id: 3
+                        name: Wellness
+                      reviews:
+                        -
+                          id: 1
+                          rating: 5
+                          comment: 'Excellent service!'
+                          user:
+                            id: 5
+                            name: 'John Doe'
+                  links:
+                    first: 'http://example.com/api/services?page=1'
+                    last: 'http://example.com/api/services?page=3'
+                    prev: null
+                    next: 'http://example.com/api/services?page=2'
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 3
+                    path: 'http://example.com/api/services'
+                    per_page: 15
+                    to: 15
+                    total: 45
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Spa Service'
+                        category_id: 3
+                        address: '123 Wellness Street'
+                        latitude: 34.052235
+                        longitude: -118.243683
+                        rating: 4.5
+                        review_count: 10
+                        opening_hours:
+                          Monday: '08:00-20:00'
+                          Tuesday: '08:00-20:00'
+                        created_at: '2024-09-15T12:45:32.000000Z'
+                        updated_at: '2024-09-15T12:45:32.000000Z'
+                        category:
+                          id: 3
+                          name: Wellness
+                        reviews:
+                          -
+                            id: 1
+                            rating: 5
+                            comment: 'Excellent service!'
+                            user:
+                              id: 5
+                              name: 'John Doe'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Spa Service'
+                        category_id:
+                          type: integer
+                          example: 3
+                        address:
+                          type: string
+                          example: '123 Wellness Street'
+                        latitude:
+                          type: number
+                          example: 34.052235
+                        longitude:
+                          type: number
+                          example: -118.243683
+                        rating:
+                          type: number
+                          example: 4.5
+                        review_count:
+                          type: integer
+                          example: 10
+                        opening_hours:
+                          type: object
+                          properties:
+                            Monday:
+                              type: string
+                              example: '08:00-20:00'
+                            Tuesday:
+                              type: string
+                              example: '08:00-20:00'
+                        created_at:
+                          type: string
+                          example: '2024-09-15T12:45:32.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-09-15T12:45:32.000000Z'
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 3
+                            name:
+                              type: string
+                              example: Wellness
+                        reviews:
+                          type: array
+                          example:
+                            -
+                              id: 1
+                              rating: 5
+                              comment: 'Excellent service!'
+                              user:
+                                id: 5
+                                name: 'John Doe'
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              rating:
+                                type: integer
+                                example: 5
+                              comment:
+                                type: string
+                                example: 'Excellent service!'
+                              user:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 5
+                                  name:
+                                    type: string
+                                    example: 'John Doe'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://example.com/api/services?page=1'
+                      last:
+                        type: string
+                        example: 'http://example.com/api/services?page=3'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: 'http://example.com/api/services?page=2'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 3
+                      path:
+                        type: string
+                        example: 'http://example.com/api/services'
+                      per_page:
+                        type: integer
+                        example: 15
+                      to:
+                        type: integer
+                        example: 15
+                      total:
+                        type: integer
+                        example: 45
+      tags:
+        - Services
+      security: []
+    post:
+      summary: 'Create a new Service'
+      operationId: createANewService
+      description: 'Store a new service. You must provide a name, category ID, address, latitude, longitude, and optionally other details.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Spa Service'
+                  category_id: 3
+                  address: '123 Wellness Street'
+                  latitude: 34.052235
+                  longitude: -118.243683
+                  rating: 4.5
+                  review_count: 10
+                  opening_hours:
+                    Monday: '08:00-20:00'
+                    Tuesday: '08:00-20:00'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T12:45:32.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Spa Service'
+                  category_id:
+                    type: integer
+                    example: 3
+                  address:
+                    type: string
+                    example: '123 Wellness Street'
+                  latitude:
+                    type: number
+                    example: 34.052235
+                  longitude:
+                    type: number
+                    example: -118.243683
+                  rating:
+                    type: number
+                    example: 4.5
+                  review_count:
+                    type: integer
+                    example: 10
+                  opening_hours:
+                    type: object
+                    properties:
+                      Monday:
+                        type: string
+                        example: '08:00-20:00'
+                      Tuesday:
+                        type: string
+                        example: '08:00-20:00'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+      tags:
+        - Services
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the service.'
+                  example: 'Spa Service'
+                category_id:
+                  type: integer
+                  description: 'The ID of the category this service belongs to.'
+                  example: 3
+                address:
+                  type: string
+                  description: 'The address of the service.'
+                  example: '123 Wellness Street'
+                latitude:
+                  type: decimal
+                  description: 'The latitude coordinate.'
+                  example: '34.052235'
+                longitude:
+                  type: decimal
+                  description: 'The longitude coordinate.'
+                  example: '-118.243683'
+                rating:
+                  type: decimal
+                  description: 'optional The rating of the service, between 0 and 5.'
+                  example: '4.5'
+                review_count:
+                  type: integer
+                  description: 'optional The number of reviews.'
+                  example: 10
+                opening_hours:
+                  type: json
+                  description: 'optional The opening hours of the service.'
+                  example: '{"Monday": "08:00-20:00", "Tuesday": "08:00-20:00"}'
+              required:
+                - name
+                - category_id
+                - address
+                - latitude
+                - longitude
+      security: []
+  '/api/services/{id}':
+    get:
+      summary: 'Get a specific Service'
+      operationId: getASpecificService
+      description: 'Retrieve details of a specific service by its ID. Optionally, include related category, reviews, or review authors by using the `include` parameter.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'Include related resources. Possible values: `category`, `reviews`, `reviews.user`.'
+          example: '?include=category,reviews,reviews.user'
+          required: false
+          schema:
+            type: string
+            description: 'Include related resources. Possible values: `category`, `reviews`, `reviews.user`.'
+            example: '?include=category,reviews,reviews.user'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Spa Service'
+                  category_id: 3
+                  address: '123 Wellness Street'
+                  latitude: 34.052235
+                  longitude: -118.243683
+                  rating: 4.5
+                  review_count: 10
+                  opening_hours:
+                    Monday: '08:00-20:00'
+                    Tuesday: '08:00-20:00'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-15T12:45:32.000000Z'
+                  category:
+                    id: 3
+                    name: Wellness
+                  reviews:
+                    -
+                      id: 1
+                      rating: 5
+                      comment: 'Excellent service!'
+                      user:
+                        id: 5
+                        name: 'John Doe'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Spa Service'
+                  category_id:
+                    type: integer
+                    example: 3
+                  address:
+                    type: string
+                    example: '123 Wellness Street'
+                  latitude:
+                    type: number
+                    example: 34.052235
+                  longitude:
+                    type: number
+                    example: -118.243683
+                  rating:
+                    type: number
+                    example: 4.5
+                  review_count:
+                    type: integer
+                    example: 10
+                  opening_hours:
+                    type: object
+                    properties:
+                      Monday:
+                        type: string
+                        example: '08:00-20:00'
+                      Tuesday:
+                        type: string
+                        example: '08:00-20:00'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 3
+                      name:
+                        type: string
+                        example: Wellness
+                  reviews:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        rating: 5
+                        comment: 'Excellent service!'
+                        user:
+                          id: 5
+                          name: 'John Doe'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        rating:
+                          type: integer
+                          example: 5
+                        comment:
+                          type: string
+                          example: 'Excellent service!'
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 5
+                            name:
+                              type: string
+                              example: 'John Doe'
+      tags:
+        - Services
+      security: []
+    put:
+      summary: 'Update a Service'
+      operationId: updateAService
+      description: 'Update the details of an existing service by its ID. You can update the name, address, or other service details.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Updated Spa Service'
+                  category_id: 4
+                  address: '456 Wellness Avenue'
+                  latitude: 34.052235
+                  longitude: -118.243683
+                  rating: 4.7
+                  review_count: 12
+                  opening_hours:
+                    Monday: '09:00-21:00'
+                    Tuesday: '09:00-21:00'
+                  created_at: '2024-09-15T12:45:32.000000Z'
+                  updated_at: '2024-09-16T12:45:32.000000Z'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Updated Spa Service'
+                  category_id:
+                    type: integer
+                    example: 4
+                  address:
+                    type: string
+                    example: '456 Wellness Avenue'
+                  latitude:
+                    type: number
+                    example: 34.052235
+                  longitude:
+                    type: number
+                    example: -118.243683
+                  rating:
+                    type: number
+                    example: 4.7
+                  review_count:
+                    type: integer
+                    example: 12
+                  opening_hours:
+                    type: object
+                    properties:
+                      Monday:
+                        type: string
+                        example: '09:00-21:00'
+                      Tuesday:
+                        type: string
+                        example: '09:00-21:00'
+                  created_at:
+                    type: string
+                    example: '2024-09-15T12:45:32.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2024-09-16T12:45:32.000000Z'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Service not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Service not found'
+      tags:
+        - Services
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'optional The name of the service.'
+                  example: 'Updated Spa Service'
+                category_id:
+                  type: integer
+                  description: 'optional The ID of the category this service belongs to.'
+                  example: 4
+                address:
+                  type: string
+                  description: 'optional The address of the service.'
+                  example: '456 Wellness Avenue'
+                latitude:
+                  type: decimal
+                  description: 'optional The latitude coordinate.'
+                  example: '34.052235'
+                longitude:
+                  type: decimal
+                  description: 'optional The longitude coordinate.'
+                  example: '-118.243683'
+                rating:
+                  type: decimal
+                  description: 'optional The rating of the service, between 0 and 5.'
+                  example: '4.7'
+                review_count:
+                  type: integer
+                  description: 'optional The number of reviews.'
+                  example: 12
+                opening_hours:
+                  type: json
+                  description: 'optional The opening hours of the service.'
+                  example: '{"Monday": "09:00-21:00", "Tuesday": "09:00-21:00"}'
+      security: []
+    delete:
+      summary: 'Delete a Service'
+      operationId: deleteAService
+      description: 'Delete a specific service by its ID.'
+      parameters: []
+      responses:
+        204:
+          description: ''
+      tags:
+        - Services
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{service_id}/subscriptions':
+    get:
+      summary: 'List Subscriptions'
+      operationId: listSubscriptions
+      description: 'Retrieve a list of subscriptions with optional included relations.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'optional Comma-separated list of relations to include. Possible values: services.'
+          example: services
+          required: false
+          schema:
+            type: string
+            description: 'optional Comma-separated list of relations to include. Possible values: services.'
+            example: services
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      service_id: 1
+                      plan: premium
+                      started_at: '2024-09-01T00:00:00Z'
+                      expires_at: '2025-09-01T00:00:00Z'
+                      service:
+                        id: 1
+                        name: 'Sample Service'
+                        address: '123 Service St'
+                        latitude: 37.774929
+                        longitude: -122.419418
+                  links:
+                    first: 'http://example.com/api/subscriptions?page=1'
+                    last: 'http://example.com/api/subscriptions?page=10'
+                    prev: null
+                    next: 'http://example.com/api/subscriptions?page=2'
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 10
+                    per_page: 15
+                    to: 15
+                    total: 150
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        service_id: 1
+                        plan: premium
+                        started_at: '2024-09-01T00:00:00Z'
+                        expires_at: '2025-09-01T00:00:00Z'
+                        service:
+                          id: 1
+                          name: 'Sample Service'
+                          address: '123 Service St'
+                          latitude: 37.774929
+                          longitude: -122.419418
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        service_id:
+                          type: integer
+                          example: 1
+                        plan:
+                          type: string
+                          example: premium
+                        started_at:
+                          type: string
+                          example: '2024-09-01T00:00:00Z'
+                        expires_at:
+                          type: string
+                          example: '2025-09-01T00:00:00Z'
+                        service:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Sample Service'
+                            address:
+                              type: string
+                              example: '123 Service St'
+                            latitude:
+                              type: number
+                              example: 37.774929
+                            longitude:
+                              type: number
+                              example: -122.419418
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://example.com/api/subscriptions?page=1'
+                      last:
+                        type: string
+                        example: 'http://example.com/api/subscriptions?page=10'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: 'http://example.com/api/subscriptions?page=2'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 10
+                      per_page:
+                        type: integer
+                        example: 15
+                      to:
+                        type: integer
+                        example: 15
+                      total:
+                        type: integer
+                        example: 150
+      tags:
+        - Subscriptions
+      security: []
+    post:
+      summary: 'Create a Subscription'
+      operationId: createASubscription
+      description: 'Store a new subscription in the database.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 1
+                  plan: premium
+                  started_at: '2024-09-01T00:00:00Z'
+                  expires_at: '2025-09-01T00:00:00Z'
+                  service:
+                    id: 1
+                    name: 'Sample Service'
+                    address: '123 Service St'
+                    latitude: 37.774929
+                    longitude: -122.419418
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 1
+                  plan:
+                    type: string
+                    example: premium
+                  started_at:
+                    type: string
+                    example: '2024-09-01T00:00:00Z'
+                  expires_at:
+                    type: string
+                    example: '2025-09-01T00:00:00Z'
+                  service:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Sample Service'
+                      address:
+                        type: string
+                        example: '123 Service St'
+                      latitude:
+                        type: number
+                        example: 37.774929
+                      longitude:
+                        type: number
+                        example: -122.419418
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    service_id:
+                      - 'The service id field is required.'
+                    plan:
+                      - 'The plan field is required.'
+                    started_at:
+                      - 'The started at field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    properties:
+                      service_id:
+                        type: array
+                        example:
+                          - 'The service id field is required.'
+                        items:
+                          type: string
+                      plan:
+                        type: array
+                        example:
+                          - 'The plan field is required.'
+                        items:
+                          type: string
+                      started_at:
+                        type: array
+                        example:
+                          - 'The started at field is required.'
+                        items:
+                          type: string
+      tags:
+        - Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  description: 'The ID of the service to subscribe to.'
+                  example: 1
+                plan:
+                  type: string
+                  description: 'The type of subscription plan.'
+                  example: premium
+                started_at:
+                  type: timestamp
+                  description: 'The start date of the subscription.'
+                  example: '2024-09-01T00:00:00Z'
+                expires_at:
+                  type: timestamp
+                  description: 'optional The end date of the subscription.'
+                  example: '2025-09-01T00:00:00Z'
+              required:
+                - service_id
+                - plan
+                - started_at
+      security: []
+    parameters:
+      -
+        in: path
+        name: service_id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{service_id}/subscriptions/{id}':
+    get:
+      summary: 'Get a Subscription'
+      operationId: getASubscription
+      description: 'Retrieve a specific subscription by its ID.'
+      parameters:
+        -
+          in: query
+          name: include
+          description: 'optional Comma-separated list of relations to include. Possible values: services.'
+          example: services
+          required: false
+          schema:
+            type: string
+            description: 'optional Comma-separated list of relations to include. Possible values: services.'
+            example: services
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 1
+                  plan: premium
+                  started_at: '2024-09-01T00:00:00Z'
+                  expires_at: '2025-09-01T00:00:00Z'
+                  service:
+                    id: 1
+                    name: 'Sample Service'
+                    address: '123 Service St'
+                    latitude: 37.774929
+                    longitude: -122.419418
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 1
+                  plan:
+                    type: string
+                    example: premium
+                  started_at:
+                    type: string
+                    example: '2024-09-01T00:00:00Z'
+                  expires_at:
+                    type: string
+                    example: '2025-09-01T00:00:00Z'
+                  service:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Sample Service'
+                      address:
+                        type: string
+                        example: '123 Service St'
+                      latitude:
+                        type: number
+                        example: 37.774929
+                      longitude:
+                        type: number
+                        example: -122.419418
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Subscription not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Subscription not found'
+      tags:
+        - Subscriptions
+      security: []
+    put:
+      summary: 'Update a Subscription'
+      operationId: updateASubscription
+      description: 'Update the details of an existing subscription by its ID.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  service_id: 2
+                  plan: free
+                  started_at: '2024-09-01T00:00:00Z'
+                  expires_at: '2025-09-01T00:00:00Z'
+                  service:
+                    id: 2
+                    name: 'Updated Service'
+                    address: '456 Service Ave'
+                    latitude: 37.774929
+                    longitude: -122.419418
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  service_id:
+                    type: integer
+                    example: 2
+                  plan:
+                    type: string
+                    example: free
+                  started_at:
+                    type: string
+                    example: '2024-09-01T00:00:00Z'
+                  expires_at:
+                    type: string
+                    example: '2025-09-01T00:00:00Z'
+                  service:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 2
+                      name:
+                        type: string
+                        example: 'Updated Service'
+                      address:
+                        type: string
+                        example: '456 Service Ave'
+                      latitude:
+                        type: number
+                        example: 37.774929
+                      longitude:
+                        type: number
+                        example: -122.419418
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Subscription not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Subscription not found'
+      tags:
+        - Subscriptions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  description: 'optional The ID of the service to update the subscription for.'
+                  example: 2
+                plan:
+                  type: string
+                  description: 'optional The type of subscription plan.'
+                  example: free
+                started_at:
+                  type: timestamp
+                  description: 'optional The start date of the subscription.'
+                  example: '2024-09-01T00:00:00Z'
+                expires_at:
+                  type: timestamp
+                  description: 'optional The end date of the subscription.'
+                  example: '2025-09-01T00:00:00Z'
+      security: []
+    delete:
+      summary: 'Delete a Subscription'
+      operationId: deleteASubscription
+      description: 'Delete a specific subscription by its ID.'
+      parameters: []
+      responses:
+        204:
+          description: ''
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  description: 'The resource was not found.'
+                properties:
+                  description:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - Subscriptions
+      security: []
+    parameters:
+      -
+        in: path
+        name: service_id
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: id
+        description: 'The ID of the subscription.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Authentication
+    description: "\nAPI endpoints for user authentication, including login and logout."
+  -
+    name: Categories
+    description: "\nAPI for managing categories."
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: Promotions
+    description: "\nAPI for managing promotions."
+  -
+    name: Reviews
+    description: "\nAPI for managing reviews."
+  -
+    name: Services
+    description: "\nAPI for managing services."
+  -
+    name: Subscriptions
+    description: "\nAPI for managing subscriptions."

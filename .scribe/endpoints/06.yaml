@@ -1,0 +1,494 @@
+name: Subscriptions
+description: |-
+
+  API for managing subscriptions.
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: 'api/services/{service_id}/subscriptions'
+    metadata:
+      groupName: Subscriptions
+      groupDescription: |-
+
+        API for managing subscriptions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List Subscriptions'
+      description: 'Retrieve a list of subscriptions with optional included relations.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      service_id:
+        name: service_id
+        description: 'The ID of the service.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      service_id: 1
+    queryParameters:
+      include:
+        name: include
+        description: 'optional Comma-separated list of relations to include. Possible values: services.'
+        required: false
+        example: services
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanQueryParameters:
+      include: services
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "data": [
+              {
+                "id": 1,
+                "service_id": 1,
+                "plan": "premium",
+                "started_at": "2024-09-01T00:00:00Z",
+                "expires_at": "2025-09-01T00:00:00Z",
+                "service": {
+                  "id": 1,
+                  "name": "Sample Service",
+                  "address": "123 Service St",
+                  "latitude": 37.774929,
+                  "longitude": -122.419418
+                }
+              }
+            ],
+            "links": {
+              "first": "http://example.com/api/subscriptions?page=1",
+              "last": "http://example.com/api/subscriptions?page=10",
+              "prev": null,
+              "next": "http://example.com/api/subscriptions?page=2"
+            },
+            "meta": {
+              "current_page": 1,
+              "from": 1,
+              "last_page": 10,
+              "per_page": 15,
+              "to": 15,
+              "total": 150
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/services/{service_id}/subscriptions'
+    metadata:
+      groupName: Subscriptions
+      groupDescription: |-
+
+        API for managing subscriptions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create a Subscription'
+      description: 'Store a new subscription in the database.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      service_id:
+        name: service_id
+        description: 'The ID of the service.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      service_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      service_id:
+        name: service_id
+        description: 'The ID of the service to subscribe to.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      plan:
+        name: plan
+        description: 'The type of subscription plan.'
+        required: true
+        example: premium
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      started_at:
+        name: started_at
+        description: 'The start date of the subscription.'
+        required: true
+        example: '2024-09-01T00:00:00Z'
+        type: timestamp
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      expires_at:
+        name: expires_at
+        description: 'optional The end date of the subscription.'
+        required: false
+        example: '2025-09-01T00:00:00Z'
+        type: timestamp
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanBodyParameters:
+      service_id: 1
+      plan: premium
+      started_at: '2024-09-01T00:00:00Z'
+      expires_at: '2025-09-01T00:00:00Z'
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "id": 1,
+            "service_id": 1,
+            "plan": "premium",
+            "started_at": "2024-09-01T00:00:00Z",
+            "expires_at": "2025-09-01T00:00:00Z",
+            "service": {
+              "id": 1,
+              "name": "Sample Service",
+              "address": "123 Service St",
+              "latitude": 37.774929,
+              "longitude": -122.419418
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+            "message": "The given data was invalid.",
+            "errors": {
+              "service_id": ["The service id field is required."],
+              "plan": ["The plan field is required."],
+              "started_at": ["The started at field is required."]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/services/{service_id}/subscriptions/{id}'
+    metadata:
+      groupName: Subscriptions
+      groupDescription: |-
+
+        API for managing subscriptions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get a Subscription'
+      description: 'Retrieve a specific subscription by its ID.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      service_id:
+        name: service_id
+        description: 'The ID of the service.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      id:
+        name: id
+        description: 'The ID of the subscription.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanUrlParameters:
+      service_id: 1
+      id: 1
+    queryParameters:
+      include:
+        name: include
+        description: 'optional Comma-separated list of relations to include. Possible values: services.'
+        required: false
+        example: services
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanQueryParameters:
+      include: services
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "service_id": 1,
+            "plan": "premium",
+            "started_at": "2024-09-01T00:00:00Z",
+            "expires_at": "2025-09-01T00:00:00Z",
+            "service": {
+              "id": 1,
+              "name": "Sample Service",
+              "address": "123 Service St",
+              "latitude": 37.774929,
+              "longitude": -122.419418
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Subscription not found"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/services/{service_id}/subscriptions/{id}'
+    metadata:
+      groupName: Subscriptions
+      groupDescription: |-
+
+        API for managing subscriptions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a Subscription'
+      description: 'Update the details of an existing subscription by its ID.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      service_id:
+        name: service_id
+        description: 'The ID of the service.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      id:
+        name: id
+        description: 'The ID of the subscription.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanUrlParameters:
+      service_id: 1
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      service_id:
+        name: service_id
+        description: 'optional The ID of the service to update the subscription for.'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      plan:
+        name: plan
+        description: 'optional The type of subscription plan.'
+        required: false
+        example: free
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      started_at:
+        name: started_at
+        description: 'optional The start date of the subscription.'
+        required: false
+        example: '2024-09-01T00:00:00Z'
+        type: timestamp
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      expires_at:
+        name: expires_at
+        description: 'optional The end date of the subscription.'
+        required: false
+        example: '2025-09-01T00:00:00Z'
+        type: timestamp
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanBodyParameters:
+      service_id: 2
+      plan: free
+      started_at: '2024-09-01T00:00:00Z'
+      expires_at: '2025-09-01T00:00:00Z'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "service_id": 2,
+            "plan": "free",
+            "started_at": "2024-09-01T00:00:00Z",
+            "expires_at": "2025-09-01T00:00:00Z",
+            "service": {
+              "id": 2,
+              "name": "Updated Service",
+              "address": "456 Service Ave",
+              "latitude": 37.774929,
+              "longitude": -122.419418
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Subscription not found"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/services/{service_id}/subscriptions/{id}'
+    metadata:
+      groupName: Subscriptions
+      groupDescription: |-
+
+        API for managing subscriptions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a Subscription'
+      description: 'Delete a specific subscription by its ID.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      service_id:
+        name: service_id
+        description: 'The ID of the service.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      id:
+        name: id
+        description: 'The ID of the subscription.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanUrlParameters:
+      service_id: 1
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 204
+        content: |-
+          {
+            "description": "No content. The resource was successfully deleted."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "description": "The resource was not found."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

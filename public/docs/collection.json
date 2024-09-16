@@ -1,0 +1,1406 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Laravel",
+        "_postman_id": "b74d6734-cb48-46af-bd28-a878e149cebf",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "\nAPI endpoints for user authentication, including login and logout.",
+            "item": [
+                {
+                    "name": "User Login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"user@example.com\",\"password\":\"password123\"}"
+                        },
+                        "description": "Authenticate a user and return a token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IkpvbmUgRG9lIiwiaWF0IjoxNTYwNzQ1OTY4LCJleHBpcmF0aW9uIjoiZG9lIiwiaWF0IjoxNTYwNzQ1OTY4fQ.qE0MFGm8er5mDdf4JqY9s8xlL78n3b7OfZQG-VZDaRQ\",\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "User Logout",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Invalidate the user's token and log out.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n  \"description\": \"No content. The user has been successfully logged out.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"Unauthorized. No valid token provided.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Categories",
+            "description": "\nAPI for managing categories.",
+            "item": [
+                {
+                    "name": "List Categories",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns a list of categories.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": [\n     {\n         \"id\": 1,\n         \"name\": \"Electronics\",\n         \"description\": \"This is category description\",\n         \"created_at\": \"2023-09-14 19:33:33\",\n         \"updated_at\": \"2023-09-14 19:33:33\"\n     }\n ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new Category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"\\\"Clothing\\\"\",\"description\":\"Category for restaurants\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"id\": 2,\n \"name\": \"Clothing\",\n \"description\": \"This is category description\",\n \"created_at\": \"2023-09-14 19:33:33\",\n \"updated_at\": \"2023-09-14 19:33:33\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a specific Category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve details of a specific category by its ID.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Hotels\",\n  \"description\": \"Category for hotels and accommodations\",\n  \"created_at\": \"2024-09-14T19:33:33.000000Z\",\n  \"updated_at\": \"2024-09-14T19:33:33.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update a specific Category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Restaurants\",\"description\":\"Category for restaurants\"}"
+                        },
+                        "description": "Update the details of a category by its ID. Only fields provided in the request will be updated.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Restaurants\",\n  \"description\": \"Category for restaurants\",\n  \"created_at\": \"2024-09-14T19:33:33.000000Z\",\n  \"updated_at\": \"2024-09-14T19:45:45.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a specific Category",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/categories\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/categories\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the category."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete the category by its ID. This action is irreversible.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n  \"message\": \"Category deleted successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "GET api\/user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Promotions",
+            "description": "\nAPI for managing promotions.",
+            "item": [
+                {
+                    "name": "Get a list of Promotions",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/promotions",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "%3Finclude%3Dservices",
+                                    "description": "Include related resources, e.g., `services`.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/promotions?include=%3Finclude%3Dservices",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve a paginated list of promotions. Optionally, include related services by using the `include=services` parameter.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"service_id\": 10,\n      \"description\": \"Discount on spa services\",\n      \"valid_until\": \"2024-12-31\",\n      \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n      \"updated_at\": \"2024-09-15T12:45:32.000000Z\",\n      \"service\": {\n        \"id\": 10,\n        \"name\": \"Spa Service\",\n        \"category_id\": 3,\n        \"address\": \"123 Wellness Street\",\n        \"latitude\": 34.052235,\n        \"longitude\": -118.243683\n      }\n    }\n  ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new Promotion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/promotions",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/promotions",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"service_id\":10,\"description\":\"Discount on spa services\",\"valid_until\":\"2024-12-31\"}"
+                        },
+                        "description": "Store a new promotion in the system. You must provide a service ID, description, and optionally the expiration date.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 10,\n  \"description\": \"Discount on spa services\",\n  \"valid_until\": \"2024-12-31\",\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T12:45:32.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a specific Promotion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/promotions\/:id",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "%3Finclude%3Dservices",
+                                    "description": "Include related resources, e.g., `services`.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/promotions\/:id?include=%3Finclude%3Dservices",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the promotion."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve details of a specific promotion by its ID. Optionally, include the related service by using the `include=services` parameter.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 10,\n  \"description\": \"Discount on spa services\",\n  \"valid_until\": \"2024-12-31\",\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"service\": {\n    \"id\": 10,\n    \"name\": \"Spa Service\",\n    \"category_id\": 3,\n    \"address\": \"123 Wellness Street\",\n    \"latitude\": 34.052235,\n    \"longitude\": -118.243683\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update a Promotion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/promotions\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/promotions\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the promotion."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"service_id\":10,\"description\":\"Updated discount on spa services\",\"valid_until\":\"2024-12-31\"}"
+                        },
+                        "description": "Update the details of an existing promotion by its ID. You can update the service ID, description, and expiration date.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 10,\n  \"description\": \"Updated discount on spa services\",\n  \"valid_until\": \"2024-12-31\",\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T13:00:00.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a Promotion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/promotions\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/promotions\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the promotion."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete a specific promotion by its ID. This action is irreversible.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n  \"message\": \"Promotion deleted successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Reviews",
+            "description": "\nAPI for managing reviews.",
+            "item": [
+                {
+                    "name": "Get a list of Reviews",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/reviews",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "%3Finclude%3Dservice%2Creviews.user",
+                                    "description": "Include related resources. Possible values: `service`, `reviews.user`.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/reviews?include=%3Finclude%3Dservice%2Creviews.user",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve a paginated list of reviews. Optionally, include related services or review authors (users) by using the `include` parameter.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"service_id\": 10,\n      \"user_id\": 5,\n      \"rating\": 5,\n      \"comment\": \"Excellent service!\",\n      \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n      \"updated_at\": \"2024-09-15T12:45:32.000000Z\",\n      \"service\": {\n        \"id\": 10,\n        \"name\": \"Spa Service\",\n        \"category_id\": 3,\n        \"address\": \"123 Wellness Street\",\n        \"latitude\": 34.052235,\n        \"longitude\": -118.243683\n      },\n      \"user\": {\n        \"id\": 5,\n        \"name\": \"John Doe\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"http:\/\/example.com\/api\/reviews?page=1\",\n    \"last\": \"http:\/\/example.com\/api\/reviews?page=3\",\n    \"prev\": null,\n    \"next\": \"http:\/\/example.com\/api\/reviews?page=2\"\n  },\n  \"meta\": {\n    \"current_page\": 1,\n    \"from\": 1,\n    \"last_page\": 3,\n    \"path\": \"http:\/\/example.com\/api\/reviews\",\n    \"per_page\": 15,\n    \"to\": 15,\n    \"total\": 45\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new Review",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/reviews",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/reviews",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"service_id\":10,\"user_id\":5,\"rating\":5,\"comment\":\"Excellent service!\"}"
+                        },
+                        "description": "Store a new review for a specific service. You must provide a service ID, user ID, rating, and optionally a comment.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 10,\n  \"user_id\": 5,\n  \"rating\": 5,\n  \"comment\": \"Excellent service!\",\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T12:45:32.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new Review",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/reviews\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/reviews\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the review."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"service_id\":10,\"user_id\":5,\"rating\":5,\"comment\":\"Excellent service!\"}"
+                        },
+                        "description": "Store a new review for a specific service. You must provide a service ID, user ID, rating, and optionally a comment.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 10,\n  \"user_id\": 5,\n  \"rating\": 5,\n  \"comment\": \"Excellent service!\",\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T12:45:32.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update a Review",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/reviews\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/reviews\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the review."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"rating\":4,\"comment\":\"Good service, but room for improvement.\",\"service_id\":11}"
+                        },
+                        "description": "Update the details of an existing review by its ID. You can update the rating, comment, or related service.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 11,\n  \"user_id\": 5,\n  \"rating\": 4,\n  \"comment\": \"Good service, but room for improvement.\",\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T13:00:00.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a Review",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/reviews\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/reviews\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the review."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete a specific review by its ID. This action is irreversible.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n  \"message\": \"Review deleted successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Services",
+            "description": "\nAPI for managing services.",
+            "item": [
+                {
+                    "name": "Get a list of Services",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "%3Finclude%3Dcategory%2Creviews%2Creviews.user",
+                                    "description": "Include related resources. Possible values: `category`, `reviews`, `reviews.user`.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services?include=%3Finclude%3Dcategory%2Creviews%2Creviews.user"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve a paginated list of services. Optionally, include related categories, reviews, or review authors (users) by using the `include` parameter.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Spa Service\",\n      \"category_id\": 3,\n      \"address\": \"123 Wellness Street\",\n      \"latitude\": 34.052235,\n      \"longitude\": -118.243683,\n      \"rating\": 4.5,\n      \"review_count\": 10,\n      \"opening_hours\": {\n        \"Monday\": \"08:00-20:00\",\n        \"Tuesday\": \"08:00-20:00\"\n      },\n      \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n      \"updated_at\": \"2024-09-15T12:45:32.000000Z\",\n      \"category\": {\n        \"id\": 3,\n        \"name\": \"Wellness\"\n      },\n      \"reviews\": [\n        {\n          \"id\": 1,\n          \"rating\": 5,\n          \"comment\": \"Excellent service!\",\n          \"user\": {\n            \"id\": 5,\n            \"name\": \"John Doe\"\n          }\n        }\n      ]\n    }\n  ],\n  \"links\": {\n    \"first\": \"http:\/\/example.com\/api\/services?page=1\",\n    \"last\": \"http:\/\/example.com\/api\/services?page=3\",\n    \"prev\": null,\n    \"next\": \"http:\/\/example.com\/api\/services?page=2\"\n  },\n  \"meta\": {\n    \"current_page\": 1,\n    \"from\": 1,\n    \"last_page\": 3,\n    \"path\": \"http:\/\/example.com\/api\/services\",\n    \"per_page\": 15,\n    \"to\": 15,\n    \"total\": 45\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new Service",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Spa Service\",\"category_id\":3,\"address\":\"123 Wellness Street\",\"latitude\":\"34.052235\",\"longitude\":\"-118.243683\",\"rating\":\"4.5\",\"review_count\":10,\"opening_hours\":\"{\\\"Monday\\\": \\\"08:00-20:00\\\", \\\"Tuesday\\\": \\\"08:00-20:00\\\"}\"}"
+                        },
+                        "description": "Store a new service. You must provide a name, category ID, address, latitude, longitude, and optionally other details.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Spa Service\",\n  \"category_id\": 3,\n  \"address\": \"123 Wellness Street\",\n  \"latitude\": 34.052235,\n  \"longitude\": -118.243683,\n  \"rating\": 4.5,\n  \"review_count\": 10,\n  \"opening_hours\": {\n    \"Monday\": \"08:00-20:00\",\n    \"Tuesday\": \"08:00-20:00\"\n  },\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T12:45:32.000000Z\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a specific Service",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:id",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "%3Finclude%3Dcategory%2Creviews%2Creviews.user",
+                                    "description": "Include related resources. Possible values: `category`, `reviews`, `reviews.user`.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services\/:id?include=%3Finclude%3Dcategory%2Creviews%2Creviews.user",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve details of a specific service by its ID. Optionally, include related category, reviews, or review authors by using the `include` parameter.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Spa Service\",\n  \"category_id\": 3,\n  \"address\": \"123 Wellness Street\",\n  \"latitude\": 34.052235,\n  \"longitude\": -118.243683,\n  \"rating\": 4.5,\n  \"review_count\": 10,\n  \"opening_hours\": {\n    \"Monday\": \"08:00-20:00\",\n    \"Tuesday\": \"08:00-20:00\"\n  },\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"category\": {\n    \"id\": 3,\n    \"name\": \"Wellness\"\n  },\n  \"reviews\": [\n    {\n      \"id\": 1,\n      \"rating\": 5,\n      \"comment\": \"Excellent service!\",\n      \"user\": {\n        \"id\": 5,\n        \"name\": \"John Doe\"\n      }\n    }\n  ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update a Service",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Updated Spa Service\",\"category_id\":4,\"address\":\"456 Wellness Avenue\",\"latitude\":\"34.052235\",\"longitude\":\"-118.243683\",\"rating\":\"4.7\",\"review_count\":12,\"opening_hours\":\"{\\\"Monday\\\": \\\"09:00-21:00\\\", \\\"Tuesday\\\": \\\"09:00-21:00\\\"}\"}"
+                        },
+                        "description": "Update the details of an existing service by its ID. You can update the name, address, or other service details.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Updated Spa Service\",\n  \"category_id\": 4,\n  \"address\": \"456 Wellness Avenue\",\n  \"latitude\": 34.052235,\n  \"longitude\": -118.243683,\n  \"rating\": 4.7,\n  \"review_count\": 12,\n  \"opening_hours\": {\n    \"Monday\": \"09:00-21:00\",\n    \"Tuesday\": \"09:00-21:00\"\n  },\n  \"created_at\": \"2024-09-15T12:45:32.000000Z\",\n  \"updated_at\": \"2024-09-16T12:45:32.000000Z\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Service not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a Service",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete a specific service by its ID.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Subscriptions",
+            "description": "\nAPI for managing subscriptions.",
+            "item": [
+                {
+                    "name": "List Subscriptions",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/subscriptions",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "services",
+                                    "description": "optional Comma-separated list of relations to include. Possible values: services.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/subscriptions?include=services",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve a list of subscriptions with optional included relations.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"service_id\": 1,\n      \"plan\": \"premium\",\n      \"started_at\": \"2024-09-01T00:00:00Z\",\n      \"expires_at\": \"2025-09-01T00:00:00Z\",\n      \"service\": {\n        \"id\": 1,\n        \"name\": \"Sample Service\",\n        \"address\": \"123 Service St\",\n        \"latitude\": 37.774929,\n        \"longitude\": -122.419418\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"http:\/\/example.com\/api\/subscriptions?page=1\",\n    \"last\": \"http:\/\/example.com\/api\/subscriptions?page=10\",\n    \"prev\": null,\n    \"next\": \"http:\/\/example.com\/api\/subscriptions?page=2\"\n  },\n  \"meta\": {\n    \"current_page\": 1,\n    \"from\": 1,\n    \"last_page\": 10,\n    \"per_page\": 15,\n    \"to\": 15,\n    \"total\": 150\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a Subscription",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/subscriptions",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/subscriptions",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"service_id\":1,\"plan\":\"premium\",\"started_at\":\"2024-09-01T00:00:00Z\",\"expires_at\":\"2025-09-01T00:00:00Z\"}"
+                        },
+                        "description": "Store a new subscription in the database.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 1,\n  \"plan\": \"premium\",\n  \"started_at\": \"2024-09-01T00:00:00Z\",\n  \"expires_at\": \"2025-09-01T00:00:00Z\",\n  \"service\": {\n    \"id\": 1,\n    \"name\": \"Sample Service\",\n    \"address\": \"123 Service St\",\n    \"latitude\": 37.774929,\n    \"longitude\": -122.419418\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"service_id\": [\"The service id field is required.\"],\n    \"plan\": [\"The plan field is required.\"],\n    \"started_at\": [\"The started at field is required.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a Subscription",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/subscriptions\/:id",
+                            "query": [
+                                {
+                                    "key": "include",
+                                    "value": "services",
+                                    "description": "optional Comma-separated list of relations to include. Possible values: services.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/subscriptions\/:id?include=services",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the subscription."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve a specific subscription by its ID.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 1,\n  \"plan\": \"premium\",\n  \"started_at\": \"2024-09-01T00:00:00Z\",\n  \"expires_at\": \"2025-09-01T00:00:00Z\",\n  \"service\": {\n    \"id\": 1,\n    \"name\": \"Sample Service\",\n    \"address\": \"123 Service St\",\n    \"latitude\": 37.774929,\n    \"longitude\": -122.419418\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Subscription not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update a Subscription",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/subscriptions\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/subscriptions\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the subscription."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"service_id\":2,\"plan\":\"free\",\"started_at\":\"2024-09-01T00:00:00Z\",\"expires_at\":\"2025-09-01T00:00:00Z\"}"
+                        },
+                        "description": "Update the details of an existing subscription by its ID.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"service_id\": 2,\n  \"plan\": \"free\",\n  \"started_at\": \"2024-09-01T00:00:00Z\",\n  \"expires_at\": \"2025-09-01T00:00:00Z\",\n  \"service\": {\n    \"id\": 2,\n    \"name\": \"Updated Service\",\n    \"address\": \"456 Service Ave\",\n    \"latitude\": 37.774929,\n    \"longitude\": -122.419418\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Subscription not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a Subscription",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:service_id\/subscriptions\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:service_id\/subscriptions\/:id",
+                            "variable": [
+                                {
+                                    "id": "service_id",
+                                    "key": "service_id",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                },
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the subscription."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete a specific subscription by its ID.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{\n  \"description\": \"No content. The resource was successfully deleted.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"description\": \"The resource was not found.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}
